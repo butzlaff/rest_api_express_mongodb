@@ -1,0 +1,31 @@
+version: '3.9'
+services:
+  backend:
+    build: .
+    ports:
+      - 3001:3001
+    container_name: mongodb_application
+    working_dir: /app-backend
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3001"] # Caso utilize outra porta interna para o back, altere ela aqui também
+      timeout: 10s
+      retries: 5
+  db:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      timeout: 10s
+      retries: 5
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    cap_add:
+      - SYS_NICE # Deve omitir alertas menores
