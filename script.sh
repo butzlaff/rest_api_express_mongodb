@@ -22,6 +22,7 @@ npm i express
 npm i express-async-errors
 npm i jest
 npm i jsonwebtoken
+npm i tsx -D
 mkdir src
 cd src
 mkdir controllers
@@ -31,5 +32,4 @@ mkdir models
 mkdir routes
 mkdir utils
 touch app.ts
-touch index.ts
 touch server.ts

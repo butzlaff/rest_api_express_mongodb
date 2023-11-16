@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsnd --watch \"./src/**\" --transpile-only ./src/server.ts",
+    "dev": "tsx --watch ./src/server.ts",
     "start": "node ./build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,6 +27,7 @@
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
+    "tsx": "^4.1.2",
     "typescript": "^5.2.2"
   },
   "dependencies": {

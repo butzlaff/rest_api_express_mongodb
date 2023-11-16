@@ -1,5 +1,6 @@
 import express from 'express';
 import router from './routes';
+import mongoose from 'mongoose';
 
 class App {
   public app: express.Express;
@@ -32,6 +33,16 @@ class App {
 
   public start(PORT: string | number): void {
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
+  }
+
+  public mongooseStart(): void {
+    mongoose.connect('mongodb://admin:admin@localhost:27017/');
+
+    const db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function() {
+      console.log('Conexão com o banco de dados estabelecida com sucesso!');
+    });
   }
 }
 
