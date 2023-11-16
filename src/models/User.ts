@@ -1,20 +1,15 @@
-import mongoose, { Schema } from 'mongoose';
+import { model } from 'mongoose';
+import { IUser, UserSchema } from '../schemas/User';
 
-interface IUser {
-  name: string;
-  email: string;
-}
-
-const userSchema = new Schema<IUser>({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-});
-
-export default class User {
-  // 3. Create a Model.
+export default class UserModel {
+  constructor(
+    private Users = model<IUser>('users', UserSchema)) { 
+  }
   async createUser(user: IUser) {
-    const connection = mongoose.createConnection('mongodb://admin:admin@127.0.0.1:27017');
-    const newUser = connection.model<IUser>('users', userSchema);
-    return await newUser.create({ ...user });
+    return await this.Users.create({ ...user });
+  }
+
+  async deleteUser(email: string) {
+    return await this.Users.deleteOne({ email });
   }
 }

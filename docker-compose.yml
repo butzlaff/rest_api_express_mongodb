@@ -28,5 +28,8 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
-    cap_add:
-      - SYS_NICE # Deve omitir alertas menores
+    # cap_add:
+    #   - SYS_NICE # Deve omitir alertas menores
+networks:
+  mongo-network:
+    driver: bridge

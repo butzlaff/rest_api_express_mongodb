@@ -35,9 +35,8 @@ class App {
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
   }
 
-  public mongooseStart(): void {
-    mongoose.connect('mongodb://admin:admin@localhost:27017/');
-
+  public async mongooseStart(): Promise<void> {
+    await mongoose.connect('mongodb://admin:admin@localhost:27017');
     const db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function() {
